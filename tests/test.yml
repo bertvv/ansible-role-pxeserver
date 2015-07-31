@@ -2,6 +2,10 @@
 - hosts: all
   sudo: true
   vars:
+    pxeserver_interface: enp0s8
+    pxeserver_address: 192.168.50.2
+    pxeserver_network: 192.168.50.0
+    pxeserver_netmask: 255.255.255.0
     pxeserver_images:
       - name: centos71_x86_64
         url: http://ftp.belnet.be/ftp.centos.org/7/isos/x86_64/

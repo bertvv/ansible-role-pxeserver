@@ -8,7 +8,7 @@ menu title ########## PXE Boot Menu ##########
 label {{ loop.index }}
 menu label ^{{ loop.index }}) {{ image.label }}
 kernel {{ image.name }}/{{ image.kernel }}
-append initrd={{ image.name }}/{{ image.initrd}} method=http://{{ ansible_default_ipv4.address }}/{{ image.name }} devfs=nomount
+append initrd={{ image.name }}/{{ image.initrd}} method=http://{{ pxeserver_address }}/{{ image.name }} devfs=nomount
 {% endfor %}
 
 label {{ pxeserver_images|length + 1 }}

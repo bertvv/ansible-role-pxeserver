@@ -1,4 +1,7 @@
 # roles/pxeserver/defaults/main.yml
 ---
 
-
+pxeserver_interface: "{{ ansible_default_ipv4.interface }}"
+pxeserver_address: "{{ ansible_default_ipv4.address }}"
+pxeserver_network: "{{ ansible_default_ipv4.network }}"
+pxeserver_netmask: "{{ ansible_default_ipv4.netmask }}"
