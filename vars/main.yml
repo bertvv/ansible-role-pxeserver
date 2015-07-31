@@ -1,0 +1,7 @@
+# roles/pxeserver/vars/main.yml
+---
+
+pxeserver_packages:
+  - pxeserver
+
+pxeserver_service: pxeserverd

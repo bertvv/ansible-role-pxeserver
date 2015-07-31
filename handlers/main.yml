@@ -1,0 +1,7 @@
+# roles/pxeserver/handlers/main.yml
+---
+
+- name: restart pxeserver
+  service:
+    name: pxeserverd
+    state: restarted

@@ -1,0 +1,16 @@
+# roles/pxeserver/tasks/main.yml
+---
+
+- name: Install packages
+  yum:
+    pkg: "{{ item }}"
+    state: installed
+  with_items: pxeserver_packages
+  tags: pxeserver
+
+- name: Ensure service is started
+  service:
+    name: "{{ pxeserver_service }}"
+    state: started
+    enabled: true
+  tags: pxeserver
