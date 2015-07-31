@@ -15,3 +15,34 @@
     enabled: true
   with_items: pxeserver_services
   tags: pxeserver
+
+- name: Make PXEBoot files available
+  file:
+    src: "{{ pxeserver_syslinux_directory }}/{{ item }}"
+    dest: "{{ tftp_root_directory }}/{{ item }}"
+    state: link
+  with_items: pxeserver_files
+  tags: pxeserver
+
+- name: Create directory for installation images
+  file:
+    path: "{{ pxeserver_image_directory }}"
+    state: directory
+  tags: pxeserver
+
+- name: Download installation images
+  get_url:
+    url: "{{ item.url }}/{{ item.iso }}"
+    dest: "{{ pxeserver_image_directory }}"
+  with_items: pxeserver_images
+  tags: pxeserver
+
+- name: Mount installation images
+  mount:
+    name: "{{ tftp_root_directory }}/{{ item.name }}"
+    src: "{{ pxeserver_image_directory }}/{{ item.iso }}"
+    fstype: iso9660
+    opts: loop
+    state: mounted
+  with_items: pxeserver_images
+  tags: pxeserver
