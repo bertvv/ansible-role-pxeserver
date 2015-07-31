@@ -6,6 +6,9 @@
       - name: centos71_x86_64
         url: http://ftp.belnet.be/ftp.centos.org/7/isos/x86_64/
         iso: CentOS-7-x86_64-NetInstall-1503.iso
+        label: Install CentOS 7.1 x86_64
+        kernel: images/pxeboot/vmlinuz
+        initrd: images/pxeboot/initrd.img
 
   roles:
     - pxeserver

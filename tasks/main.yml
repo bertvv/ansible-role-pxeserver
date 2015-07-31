@@ -53,3 +53,15 @@
     dest: /etc/httpd/conf.d/pxeboot.conf
   notify: restart httpd
   tags: pxeserver
+
+- name: Ensure PXE configuration directory exists
+  file:
+    path: "{{ tftp_root_directory }}/pxelinux.cfg"
+    state: directory
+  tags: pxeserver
+
+- name: Install PXE boot menu
+  template:
+    src: var_lib_tftpboot_pxelinux.cfg_default
+    dest: "{{ tftp_root_directory }}/pxelinux.cfg/default"
+  tags: pxeserver

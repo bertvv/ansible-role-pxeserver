@@ -1,0 +1,15 @@
+default menu.c32
+prompt 0
+timeout 300
+ONTIMEOUT local
+
+menu title ########## PXE Boot Menu ##########
+{% for image in pxeserver_images %}
+label {{ loop.index }}
+menu label ^{{ loop.index }}) {{ image.label }}
+kernel {{ image.name }}/{{ image.kernel }}
+append initrd={{ image.name }}/{{ image.initrd}} method=http://{{ ansible_default_ipv4.address }}/{{ image.name }} devfs=nomount
+{% endfor %}
+
+label {{ pxeserver_images|length + 1 }}
+menu label ^{{ pxeserver_images|length + 1 }}) Boot from local drive localboot
