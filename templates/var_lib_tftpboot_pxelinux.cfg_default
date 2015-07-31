@@ -12,4 +12,5 @@ append initrd={{ image.name }}/{{ image.initrd}} method=http://{{ pxeserver_addr
 {% endfor %}
 
 label {{ pxeserver_images|length + 1 }}
-menu label ^{{ pxeserver_images|length + 1 }}) Boot from local drive localboot
+menu label ^{{ pxeserver_images|length + 1 }}) Boot from local drive
+localboot
