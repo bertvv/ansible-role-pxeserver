@@ -1,8 +1,18 @@
 # Ansible role `pxeserver`
 
-An Ansible role for PURPOSE. Specifically, the responsibilities of this role are to:
+An Ansible role for setting up a PXE boot server, inspired by [this blog post from Unixmen](http://www.unixmen.com/install-configure-pxe-server-client-centos-6-5/). Specifically, the responsibilities of this role are to:
 
--
+- Install necessary packages
+- Start necessary services
+- Make installation images available to clients
+
+**This role is unfinished and should only be used for testing.**
+
+## TODO
+
+- DHCP should not be a concern of this role, so should be handled by a separate role
+- Image doesn't boot.
+- Document correct firewall settings
 
 ## Requirements
 
