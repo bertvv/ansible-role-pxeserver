@@ -8,9 +8,10 @@
   with_items: pxeserver_packages
   tags: pxeserver
 
-- name: Ensure service is started
+- name: Ensure services are started
   service:
-    name: "{{ pxeserver_service }}"
+    name: "{{ item }}"
     state: started
     enabled: true
+  with_items: pxeserver_services
   tags: pxeserver

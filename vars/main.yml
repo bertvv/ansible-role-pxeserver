@@ -2,6 +2,10 @@
 ---
 
 pxeserver_packages:
-  - pxeserver
+  - httpd
+  - syslinux
+  - xinetd
 
-pxeserver_service: pxeserverd
+pxeserver_services:
+  - httpd
+  - xinetd
