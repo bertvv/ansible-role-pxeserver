@@ -46,3 +46,10 @@
     state: mounted
   with_items: pxeserver_images
   tags: pxeserver
+
+- name: Add Apache configuration for access to installation images
+  template:
+    src: etc_httpd_conf.d_pxeboot.conf
+    dest: /etc/httpd/conf.d/pxeboot.conf
+  notify: restart httpd
+  tags: pxeserver

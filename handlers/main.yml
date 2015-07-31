@@ -1,7 +1,7 @@
 # roles/pxeserver/handlers/main.yml
 ---
 
-- name: restart pxeserver
+- name: restart httpd
   service:
-    name: pxeserverd
+    name: httpd
     state: restarted
