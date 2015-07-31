@@ -17,10 +17,9 @@
   tags: pxeserver
 
 - name: Make PXEBoot files available
-  file:
-    src: "{{ pxeserver_syslinux_directory }}/{{ item }}"
-    dest: "{{ tftp_root_directory }}/{{ item }}"
-    state: link
+  command: cp "{{ pxeserver_syslinux_directory }}/{{ item }}" "{{ tftp_root_directory }}/{{ item }}"
+  args:
+    creates: "{{ tftp_root_directory }}/{{ item }}"
   with_items: pxeserver_files
   tags: pxeserver
 
