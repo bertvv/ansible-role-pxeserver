@@ -2,6 +2,7 @@
 ---
 
 pxeserver_packages:
+  - dhcp
   - httpd
   - syslinux
   - xinetd
