@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: Bert Van Vreckem
-  description: PURPOSE
+  description: Role for setting up a PXE server on RHEL/CentOS 7
   company:
   license: BSD
   min_ansible_version: 1.7
@@ -11,5 +11,7 @@ galaxy_info:
       - 7
   categories:
     - system
-dependencies: []
+    - network
+dependencies:
+  - bertvv.tftp
 version: 1.0.0
