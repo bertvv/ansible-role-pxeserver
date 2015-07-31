@@ -65,3 +65,11 @@
     src: var_lib_tftpboot_pxelinux.cfg_default
     dest: "{{ tftp_root_directory }}/pxelinux.cfg/default"
   tags: pxeserver
+
+- name: Configure DHCP
+  template:
+    src: etc_dhcp_dhcpd.conf
+    dest: /etc/dhcp/dhcpd.conf
+  tags: pxeserver
+
+
