@@ -2,23 +2,16 @@
 ---
 
 pxeserver_packages:
-  - dhcp
-  - httpd
   - shim
   - syslinux
-  - xinetd
 
 pxeserver_services:
-  - httpd
   - xinetd
+  - dhcpd
 
 pxeserver_syslinux_directory: /usr/share/syslinux
 
 pxeserver_files:
   - pxelinux.0
-  - menu.c32
-  - memdisk
-  - mboot.c32
-  - chain.c32
 
 
