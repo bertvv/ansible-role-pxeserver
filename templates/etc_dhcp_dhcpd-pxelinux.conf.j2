@@ -1,0 +1,15 @@
+option arch code 93 = unsigned integer 16; # RFC4578
+
+class "pxeclients" {
+  match if substring (option vendor-class-identifier, 0, 9) = "PXEClient";
+  next-server {{ pxeserver_ip }};
+
+  if option arch = 00:07 {
+    filename "pxelinux/bootx64.efi";
+#  } else if option arch = 00:06 {
+#    filename "pxelinux/bootia32.efi";
+  } else {
+    filename "pxelinux/pxelinux.0";
+  }
+}
+

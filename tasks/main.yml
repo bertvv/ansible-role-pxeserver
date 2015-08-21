@@ -23,8 +23,28 @@
   tags: pxeserver
 
 - name: Make Network Boot Programs for BIOS and UEFI based systems available
-  command: cp "{{ item }}" "{{ pxeserver_directory }}/{{ item|regex_replace('.*/', '') }}"
+  command: cp "{{ item }}" "{{ pxeserver_path }}/{{ item|regex_replace('.*/', '') }}"
   args:
-    creates: "{{ pxeserver_directory }}/{{ item|regex_replace('.*/', '') }}"
+    creates: "{{ pxeserver_path }}/{{ item|regex_replace('.*/', '') }}"
   with_items: pxeserver_files
+  tags: pxeserver
+
+- name: Create directory for PXE server configuration
+  file:
+    path: "{{ pxeserver_path }}/pxelinux.cfg"
+    state: directory
+  tags: pxeserver
+
+- name: DHCP configuration for PXE server
+  template:
+    src: etc_dhcp_dhcpd-pxelinux.conf.j2
+    dest: /etc/dhcpd-pxelinux.conf
+  notify: restart dhcp
+  tags: pxeserver
+
+- name: Load PXELinux DHCP configuration from main DHCP config file
+  lineinfile:
+    dest: /etc/dhcp/dhcpd.conf
+    line: 'include "/etc/dhcpd-pxelinux.conf";'
+  notify: restart dhcp
   tags: pxeserver
