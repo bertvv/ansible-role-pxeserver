@@ -9,9 +9,6 @@ pxeserver_services:
   - xinetd
   - dhcpd
 
-pxeserver_syslinux_directory: /usr/share/syslinux
-
 pxeserver_files:
-  - pxelinux.0
-
-
+  - /usr/share/syslinux/pxelinux.0
+  - /boot/efi/EFI/BOOT/BOOTX64.EFI

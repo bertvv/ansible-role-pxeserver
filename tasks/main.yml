@@ -16,3 +16,15 @@
   with_items: pxeserver_services
   tags: pxeserver
 
+- name: Create directory for PXEboot related files
+  file:
+    path: "{{ pxeserver_directory }}"
+    state: directory
+  tags: pxeserver
+
+- name: Make Network Boot Programs for BIOS and UEFI based systems available
+  command: cp "{{ item }}" "{{ pxeserver_directory }}/{{ item|regex_replace('.*/', '') }}"
+  args:
+    creates: "{{ pxeserver_directory }}/{{ item|regex_replace('.*/', '') }}"
+  with_items: pxeserver_files
+  tags: pxeserver
