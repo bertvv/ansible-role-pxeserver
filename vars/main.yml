@@ -11,4 +11,5 @@ pxeserver_services:
 
 pxeserver_files:
   - /usr/share/syslinux/pxelinux.0
+  - /usr/share/syslinux/menu.c32
   - /boot/efi/EFI/BOOT/BOOTX64.EFI
