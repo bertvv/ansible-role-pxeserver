@@ -35,6 +35,32 @@
     state: directory
   tags: pxeserver
 
+- name: Create directories for boot images
+  file:
+    path: "{{ item.name }}"
+    state: directory
+  tags: pxeserver
+
+- name: Download boot images
+  get_url:
+    url: "{{ item.kernel_url }}"
+    dest: "{{ pxeserver_path }}/{{ item.name }}/vmlinuz"
+  with_items: pxeserver_images
+  tags: pxeserver
+
+- name: Download initrd images
+  get_url:
+    url: "{{ item.initrd_url }}"
+    dest: "{{ pxeserver_path }}/{{ item.name }}/initrd.img"
+  with_items: pxeserver_images
+  tags: pxeserver
+
+- name: Create default menu for BIOS based systems
+  template:
+    src: pxelinux.cfg_default
+    dest: "{{ pxeserver_path }}/pxelinux.cfg/default"
+  tags: pxeserver
+
 - name: DHCP configuration for PXE server
   template:
     src: etc_dhcp_dhcpd-pxelinux.conf.j2
