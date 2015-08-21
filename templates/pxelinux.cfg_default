@@ -1,0 +1,16 @@
+DEFAULT menu.c32
+PROMPT 0
+TIMEOUT 300
+ONTIMEOUT local
+
+MENU title ########## PXE Boot Menu ##########
+{% for image in pxeserver_images %}
+LABEL {{ loop.index }}
+MENU LABEL ^{{ loop.index }}) {{ image.label }}
+KERNEL {{ image.name }}/vmlinuz
+APPEND initrd={{ image.name }}/initrd.img
+{% endfor %}
+
+LABEL {{ pxeserver_images|length + 1 }}
+MENU LABEL ^{{ pxeserver_images|length + 1 }}) Boot from local drive
+LOCALBOOT
