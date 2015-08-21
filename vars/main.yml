@@ -4,6 +4,7 @@
 pxeserver_packages:
   - dhcp
   - httpd
+  - shim
   - syslinux
   - xinetd
 
@@ -12,7 +13,6 @@ pxeserver_services:
   - xinetd
 
 pxeserver_syslinux_directory: /usr/share/syslinux
-pxeserver_image_directory: /srv/install_images
 
 pxeserver_files:
   - pxelinux.0

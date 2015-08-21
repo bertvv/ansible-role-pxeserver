@@ -29,46 +29,57 @@
     state: directory
   tags: pxeserver
 
-- name: Download installation images
-  get_url:
-    url: "{{ item.url }}/{{ item.iso }}"
-    dest: "{{ pxeserver_image_directory }}"
-  with_items: pxeserver_images
-  tags: pxeserver
+#- name: Download installation images
+  #get_url:
+    #url: "{{ item.url }}/{{ item.iso }}"
+    #dest: "{{ pxeserver_image_directory }}"
+  #with_items: pxeserver_images
+  #when: pxeserver_images is defined
+  #tags: pxeserver
 
-- name: Mount installation images
-  mount:
-    name: "{{ tftp_root_directory }}/{{ item.name }}"
-    src: "{{ pxeserver_image_directory }}/{{ item.iso }}"
-    fstype: iso9660
-    opts: loop
-    state: mounted
-  with_items: pxeserver_images
-  tags: pxeserver
+#- name: Mount installation images
+  #mount:
+    #name: "{{ tftp_root_directory }}/{{ item.name }}"
+    #src: "{{ pxeserver_image_directory }}/{{ item.iso }}"
+    #fstype: iso9660
+    #opts: loop
+    #state: mounted
+  #with_items: pxeserver_images
+  #when: pxeserver_images is defined
+  #tags: pxeserver
 
-- name: Add Apache configuration for access to installation images
+#- name: Add Apache configuration for access to installation images
+  #template:
+    #src: etc_httpd_conf.d_pxeboot.conf
+    #dest: /etc/httpd/conf.d/pxeboot.conf
+  #notify: restart httpd
+  #when: pxeserver_images is defined
+  #tags: pxeserver
+
+- name: Add dnsmasq configuration
   template:
-    src: etc_httpd_conf.d_pxeboot.conf
-    dest: /etc/httpd/conf.d/pxeboot.conf
-  notify: restart httpd
+    src: etc_dnsmasq.d_pxeserver.conf.j2
+    dest: /etc/dnsmasq.d/pxeserver.conf
+  notify: restart dnsmasq
   tags: pxeserver
 
-- name: Ensure PXE configuration directory exists
-  file:
-    path: "{{ tftp_root_directory }}/pxelinux.cfg"
-    state: directory
-  tags: pxeserver
+#- name: Ensure PXE configuration directory exists
+  #file:
+    #path: "{{ tftp_root_directory }}/pxelinux.cfg"
+    #state: directory
+ # tags: pxeserver
 
-- name: Install PXE boot menu
-  template:
-    src: var_lib_tftpboot_pxelinux.cfg_default
-    dest: "{{ tftp_root_directory }}/pxelinux.cfg/default"
-  tags: pxeserver
+#- name: Install PXE boot menu
+  #template:
+    #src: var_lib_tftpboot_pxelinux.cfg_default
+    #dest: "{{ tftp_root_directory }}/pxelinux.cfg/default"
+  #when: pxeserver_images is defined
+  #tags: pxeserver
 
-- name: Configure DHCP
-  template:
-    src: etc_dhcp_dhcpd.conf
-    dest: /etc/dhcp/dhcpd.conf
-  tags: pxeserver
+#- name: Configure DHCP
+  #template:
+    #src: etc_dhcp_dhcpd.conf
+    #dest: /etc/dhcp/dhcpd.conf
+  #tags: pxeserver
 
 

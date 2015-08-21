@@ -13,6 +13,7 @@ An Ansible role for setting up a PXE boot server, inspired by [this blog post fr
 - DHCP should not be a concern of this role, so should be handled by a separate role
 - Image doesn't boot.
 - Document correct firewall settings
+- Mounted cd image is inaccessible through TFTP because SELinux
 
 ## Requirements
 
