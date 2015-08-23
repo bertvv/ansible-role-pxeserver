@@ -18,7 +18,7 @@
 
 - name: Create directory for PXEboot related files
   file:
-    path: "{{ pxeserver_directory }}"
+    path: "{{ pxeserver_path }}"
     state: directory
   tags: pxeserver
 
@@ -37,8 +37,9 @@
 
 - name: Create directories for boot images
   file:
-    path: "{{ item.name }}"
+    path: "{{ pxeserver_path }}/{{ item.name }}"
     state: directory
+  with_items: pxeserver_images
   tags: pxeserver
 
 - name: Download boot images
