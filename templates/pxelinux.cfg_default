@@ -8,7 +8,7 @@ MENU title ########## PXE Boot Menu ##########
 LABEL {{ loop.index }}
 MENU LABEL ^{{ loop.index }}) {{ image.label }}
 KERNEL {{ image.name }}/vmlinuz
-APPEND initrd={{ image.name }}/initrd.img
+APPEND initrd={{ image.name }}/initrd.img root=nfs:{{ pxeserver_ip }}:{{ pxeserver_path }}/{{ image.name }}/rootfs
 {% endfor %}
 
 LABEL {{ pxeserver_images|length + 1 }}

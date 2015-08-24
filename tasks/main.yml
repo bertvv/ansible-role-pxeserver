@@ -56,6 +56,20 @@
   with_items: pxeserver_images
   tags: pxeserver
 
+- name: Ensure directory for the root filesystem exists
+  file:
+    path: "{{ pxeserver_path }}/{{ item.name }}/rootfs"
+    state: directory
+  with_items: pxeserver_images
+  tags: pxeserver
+
+- name: Create NFS exports file
+  template:
+    src: etc_exports
+    dest: /etc/exports
+  notify: restart nfs
+  tags: pxeserver
+
 - name: Create default menu for BIOS based systems
   template:
     src: pxelinux.cfg_default
@@ -75,3 +89,5 @@
     line: 'include "/etc/dhcpd-pxelinux.conf";'
   notify: restart dhcp
   tags: pxeserver
+
+

@@ -1,0 +1,6 @@
+# NFS shares
+#
+# {{ ansible_managed }}
+{% for image in pxeserver_images %}
+{{ pxeserver_path }}/{{ image.name }}/rootfs *(rw,sync,no_root_squash)
+{% endfor %}
