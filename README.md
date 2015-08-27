@@ -1,19 +1,14 @@
 # Ansible role `pxeserver`
 
-An Ansible role for setting up a PXE boot server, inspired by [this blog post from Unixmen](http://www.unixmen.com/install-configure-pxe-server-client-centos-6-5/). Specifically, the responsibilities of this role are to:
+An Ansible role for setting up a PXE boot server.
 
 - Install necessary packages
-- Start necessary services
+- Configure and start necessary services (TFTP, DHCP, NFS)
 - Make installation images available to clients
 
+This role will download the kernel(s) and initrd(s) that you want to boot, but the filesystem (that will be shared over NFS) is not set up automatically.
+
 **This role is unfinished and should only be used for testing.**
-
-## TODO
-
-- DHCP should not be a concern of this role, so should be handled by a separate role
-- Image doesn't boot.
-- Document correct firewall settings
-- Mounted cd image is inaccessible through TFTP because SELinux
 
 ## Requirements
 
@@ -28,7 +23,10 @@ No specific requirements
 
 ## Dependencies
 
-No dependencies.
+This role depends on:
+
+- [bertvv.tftp](https://galaxy.ansible.com/list#/roles/3597)
+- [bertvv.dhcp](https://galaxy.ansible.com/list#/roles/4859)
 
 ## Example Playbook
 
@@ -55,6 +53,11 @@ Issues, feature requests, ideas are appreciated and can be posted in the Issues 
 ## License
 
 BSD
+
+## Further reading
+
+- J. East, and D. Domingo (eds.), 2015. [Setting up a remote diskless system](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Storage_Administration_Guide/ch-disklesssystems.html). In *Red Hat 7 Storage Administration Guide*
+- Petr Bokoč, et. al, 2015. [Preparing for a network installation](https://access.redhat.com/documentation/en-US/Red_Hat_Enterprise_Linux/7/html/Installation_Guide/chap-installation-server-setup.html). In *Red Hat 7 Installation Guide.
 
 ## Author Information
 
