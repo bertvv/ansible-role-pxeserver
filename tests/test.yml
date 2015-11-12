@@ -11,6 +11,7 @@
       end: 192.168.50.254
     pxeserver_images:
       - name: centos71_x86_64
+        default: true
         url: http://ftp.belnet.be/ftp.centos.org/7/isos/x86_64/
         iso: CentOS-7-x86_64-NetInstall-1503.iso
         label: Install CentOS 7.1 x86_64
