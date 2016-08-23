@@ -8,14 +8,13 @@ An Ansible role for setting up a PXE boot server.
 
 This role will download the kernel(s) and initrd(s) that you want to boot, but the filesystem (that will be shared over NFS) is not set up automatically.
 
-**This role is unfinished and should only be used for testing.**
-
 ## Requirements
 
 No specific requirements
 
 ## Role Variables
 
+*TODO*
 
 | Variable   | Required | Default | Comments (type)  |
 | :---       | :---     | :---    | :---             |
@@ -34,17 +33,16 @@ See the [test playbook](tests/test.yml)
 
 ## Testing
 
-The `tests` directory contains tests for this role in the form of a Vagrant environment. The directory `tests/roles/pxeserver` is a symbolic link that should point to the root of this project in order to work. To create it, do
+The `tests` directory contains tests for this role in the form of a Vagrant environment. You should install the dependent roles
 
 ```ShellSession
 $ cd tests/
-$ mkdir roles
-$ ln -frs ../../PROJECT_DIR roles/pxeserver
+$ ansible-galaxy install -p roles bertvv.dhcp
+$ ansible-galaxy install -p roles bertvv.tftp
+$ vagrant up
 ```
 
-You may want to change the base box into one that you like. The current one is based on Box-Cutter's [CentOS Packer template](https://github.com/boxcutter/centos).
-
-The playbook [`test.yml`](tests/test.yml) applies the role to a VM, setting role variables.
+The last command creates a new CentOS 7 VM and applies the playbook [`test.yml`](tests/test.yml). This should result in a working PXE server.
 
 ## Contributing
 
