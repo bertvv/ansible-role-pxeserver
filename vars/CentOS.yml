@@ -8,8 +8,6 @@ pxeserver_packages:
   - syslinux
 
 pxeserver_services:
-  - xinetd
-  - dhcpd
   - rpcbind
   - nfs-server
 
