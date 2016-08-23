@@ -5,13 +5,7 @@
     dhcp_subnets:
       - ip: 192.168.50.0
         netmask: 255.255.255.0
-    pxeserver_interface: enp0s8
-    pxeserver_address: 192.168.50.2
-    pxeserver_network: 192.168.50.0
-    pxeserver_netmask: 255.255.255.0
-    pxeserver_dhcp_range:
-      start: 192.168.50.100
-      end: 192.168.50.254
+    pxeserver_ip: 192.168.50.2
     pxeserver_images:
       - name: centos7_x86_64
         default: true
