@@ -86,6 +86,9 @@
   template:
     src: etc_dhcp_dhcpd-pxelinux.conf.j2
     dest: /etc/dhcpd-pxelinux.conf
+    owner: root
+    group: root
+    mode: '0600'
   notify: restart dhcp
   tags: pxeserver
 
