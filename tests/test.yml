@@ -1,7 +1,10 @@
 ---
 - hosts: all
-  sudo: true
+  become: true
   vars:
+    dhcp_subnets:
+      - ip: 192.168.50.0
+        netmask: 255.255.255.0
     pxeserver_interface: enp0s8
     pxeserver_address: 192.168.50.2
     pxeserver_network: 192.168.50.0
@@ -10,13 +13,11 @@
       start: 192.168.50.100
       end: 192.168.50.254
     pxeserver_images:
-      - name: centos71_x86_64
+      - name: centos7_x86_64
         default: true
-        url: http://ftp.belnet.be/ftp.centos.org/7/isos/x86_64/
-        iso: CentOS-7-x86_64-NetInstall-1503.iso
-        label: Install CentOS 7.1 x86_64
-        kernel: images/pxeboot/vmlinuz
-        initrd: images/pxeboot/initrd.img
+        kernel_url: http://ftp.belnet.be/ftp.centos.org/7/os/x86_64/isolinux/vmlinuz
+        initrd_url: http://ftp.belnet.be/ftp.centos.org/7/os/x86_64/isolinux/initrd.img
+        label: CentOS 7 x86_64
 
   roles:
     - pxeserver
