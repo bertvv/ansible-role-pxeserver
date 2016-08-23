@@ -5,7 +5,7 @@
   yum:
     pkg: "{{ item }}"
     state: installed
-  with_items: pxeserver_packages
+  with_items: "{{ pxeserver_packages }}"
   tags: pxeserver
 
 - name: Ensure services are started
@@ -13,7 +13,7 @@
     name: "{{ item }}"
     state: started
     enabled: true
-  with_items: pxeserver_services
+  with_items: "{{ pxeserver_services }}"
   tags: pxeserver
 
 - name: Create directory for PXEboot related files
@@ -26,7 +26,7 @@
   command: cp "{{ item }}" "{{ pxeserver_path }}/{{ item|regex_replace('.*/', '') }}"
   args:
     creates: "{{ pxeserver_path }}/{{ item|regex_replace('.*/', '') }}"
-  with_items: pxeserver_files
+  with_items: "{{ pxeserver_files }}"
   tags: pxeserver
 
 - name: Create directory for PXE server configuration
@@ -39,28 +39,28 @@
   file:
     path: "{{ pxeserver_path }}/{{ item.name }}"
     state: directory
-  with_items: pxeserver_images
+  with_items: "{{ pxeserver_images }}"
   tags: pxeserver
 
 - name: Download boot images
   get_url:
     url: "{{ item.kernel_url }}"
     dest: "{{ pxeserver_path }}/{{ item.name }}/vmlinuz"
-  with_items: pxeserver_images
+  with_items: "{{ pxeserver_images }}"
   tags: pxeserver
 
 - name: Download initrd images
   get_url:
     url: "{{ item.initrd_url }}"
     dest: "{{ pxeserver_path }}/{{ item.name }}/initrd.img"
-  with_items: pxeserver_images
+  with_items: "{{ pxeserver_images }}"
   tags: pxeserver
 
 - name: Ensure directory for the root filesystem exists
   file:
     path: "{{ pxeserver_path }}/{{ item.name }}/rootfs"
     state: directory
-  with_items: pxeserver_images
+  with_items: "{{ pxeserver_images }}"
   tags: pxeserver
 
 - name: Create NFS exports file
