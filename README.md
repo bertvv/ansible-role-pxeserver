@@ -16,21 +16,23 @@ No specific requirements
 
 *TODO*
 
-| Variable              | Default                        | Comment                                                              |
-| :---                  | :---                           | :---                                                                 |
-| `pxeserver_directory` | `pxelinux`                     | Subdirectory under TFTP root for PXE specific files                  |
+| Variable              | Default                        | Comment                                                          |
+| :---                  | :---                           | :---                                                             |
+| `pxeserver_directory` | `pxelinux`                     | Subdirectory under TFTP root for PXE specific files              |
 | `pxeserver_images`    | []                             | List of dicts specifying PXEboot images to be served. See below. |
-| `pxeserver_ip`        | `ansible_default_ipv4.address` | IP address of the PXE server                                         |
+| `pxeserver_ip`        | `ansible_default_ipv4.address` | IP address of the PXE server                                     |
 
 You can specify the boot images to be served with the variable `pxeserver_images`, a dict containing the keys listed below. Keys are *mandatory* unless specified.
 
-| Key          | Value                                                                  |
-| :---         | :---                                                                   |
-| `name`       | A unique identifier for the image                                      |
-| `default`    | When `true`, this image is chosen as the default. May be omitted. |
-| `kernel_url` | URL where to download the kernel image.                                |
-| `initrd_url` | URL where to download the initrd image.                                |
-| `label`      | Label for the PXE boot menu entry of this image.                       |
+| Key              | Value                                                             |
+| :---             | :---                                                              |
+| `name`           | A unique identifier for the image                                 |
+| `default`        | When `true`, this image is chosen as the default. May be omitted. |
+| `kernel_url`     | URL where to download the kernel image.                           |
+| `initrd_url`     | URL where to download the initrd image.                           |
+| `kickstart_url`  | URL where to download the kickstart file. May be omitted          |
+| `kickstart_path` | Location where to copy the kickstart file from. May be omitted    |
+| `label`          | Label for the PXE boot menu entry of this image.                  |
 
 ## Dependencies
 
