@@ -91,6 +91,22 @@
     mode: '0600'
   notify: restart dhcp
   tags: pxeserver
+  
+- name: Copy local kickstart files
+  copy:
+    src: "{{ item.kickstart_path }}"
+    dest: "{{ pxeserver_path }}/{{ item.name }}/ks.cfg"
+  when: item.kickstart_path is defined
+  with_items: "{{ pxeserver_images }}"
+  tags: pxeserver
+
+- name: Download remote kickstart files
+  get_url:
+    url: "{{ item.kickstart_url }}"
+    dest: "{{ pxeserver_path }}/{{ item.name }}/ks.cfg"
+  when: item.kickstart_url is defined
+  with_items: "{{ pxeserver_images }}"
+  tags: pxeserver
 
 - name: Load PXELinux DHCP configuration from main DHCP config file
   lineinfile:
@@ -98,5 +114,3 @@
     line: 'include "/etc/dhcpd-pxelinux.conf";'
   notify: restart dhcp
   tags: pxeserver
-
-
