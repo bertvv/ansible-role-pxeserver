@@ -9,8 +9,8 @@ LABEL {{ loop.index }}
 MENU DEFAULT
 {% endif %}
 MENU LABEL ^{{ loop.index }}) {{ image.label }}
-KERNEL {{ image.name }}/vmlinuz
-APPEND initrd={{ image.name }}/initrd.img root=nfs:{{ pxeserver_ip }}:{{ pxeserver_path }}/{{ image.name }}/rootfs {% if image.kickstart_url is defined or image.kickstart_path is defined%} inst.ks=nfs:{{ pxeserver_ip }}:{{ pxeserver_path }}/{{ image.name }}/ks.cfg {% endif %}
+KERNEL memdisk
+APPEND iso initrd={{ image.name }}/{{ image.iso }} raw
 {% endfor %}
 
 LABEL {{ pxeserver_images|length + 1 }}

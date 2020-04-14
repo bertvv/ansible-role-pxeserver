@@ -39,7 +39,6 @@ You can specify the boot images to be served with the variable `pxeserver_images
 This role depends on:
 
 - [bertvv.tftp](https://galaxy.ansible.com/list#/roles/3597)
-- [bertvv.dhcp](https://galaxy.ansible.com/list#/roles/4859)
 
 ## Example Playbook
 
@@ -51,7 +50,6 @@ The `tests` directory contains tests for this role in the form of a Vagrant envi
 
 ```ShellSession
 $ cd tests/
-$ ansible-galaxy install -p roles bertvv.dhcp
 $ ansible-galaxy install -p roles bertvv.tftp
 $ vagrant up
 ```

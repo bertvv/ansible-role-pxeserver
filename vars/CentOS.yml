@@ -12,6 +12,7 @@ pxeserver_services:
   - nfs-server
 
 pxeserver_files:
-  - /usr/share/syslinux/pxelinux.0
-  - /usr/share/syslinux/menu.c32
   - /boot/efi/EFI/BOOT/BOOTX64.EFI
+  - /usr/share/syslinux/memdisk
+  - /usr/share/syslinux/menu.c32
+  - /usr/share/syslinux/pxelinux.0

@@ -48,69 +48,15 @@
   with_items: "{{ pxeserver_images }}"
   tags: pxeserver
 
-- name: Download boot images
+- name: Download ISO
   get_url:
-    url: "{{ item.kernel_url }}"
-    dest: "{{ pxeserver_path }}/{{ item.name }}/vmlinuz"
+    url: "{{ item.iso_url }}{{ item.iso }}"
+    dest: "{{ pxeserver_path }}/{{ item.name }}/{{ item.iso }}"
   with_items: "{{ pxeserver_images }}"
-  tags: pxeserver
-
-- name: Download initrd images
-  get_url:
-    url: "{{ item.initrd_url }}"
-    dest: "{{ pxeserver_path }}/{{ item.name }}/initrd.img"
-  with_items: "{{ pxeserver_images }}"
-  tags: pxeserver
-
-- name: Ensure directory for the root filesystem exists
-  file:
-    path: "{{ pxeserver_path }}/{{ item.name }}/rootfs"
-    state: directory
-  with_items: "{{ pxeserver_images }}"
-  tags: pxeserver
-
-- name: Create NFS exports file
-  template:
-    src: etc_exports
-    dest: /etc/exports
-  notify: restart nfs
   tags: pxeserver
 
 - name: Create default menu for BIOS based systems
   template:
     src: pxelinux.cfg_default
     dest: "{{ pxeserver_path }}/pxelinux.cfg/default"
-  tags: pxeserver
-
-- name: DHCP configuration for PXE server
-  template:
-    src: etc_dhcp_dhcpd-pxelinux.conf.j2
-    dest: /etc/dhcpd-pxelinux.conf
-    owner: root
-    group: root
-    mode: '0600'
-  notify: restart dhcp
-  tags: pxeserver
-  
-- name: Copy local kickstart files
-  copy:
-    src: "{{ item.kickstart_path }}"
-    dest: "{{ pxeserver_path }}/{{ item.name }}/ks.cfg"
-  when: item.kickstart_path is defined
-  with_items: "{{ pxeserver_images }}"
-  tags: pxeserver
-
-- name: Download remote kickstart files
-  get_url:
-    url: "{{ item.kickstart_url }}"
-    dest: "{{ pxeserver_path }}/{{ item.name }}/ks.cfg"
-  when: item.kickstart_url is defined
-  with_items: "{{ pxeserver_images }}"
-  tags: pxeserver
-
-- name: Load PXELinux DHCP configuration from main DHCP config file
-  lineinfile:
-    dest: /etc/dhcp/dhcpd.conf
-    line: 'include "/etc/dhcpd-pxelinux.conf";'
-  notify: restart dhcp
   tags: pxeserver
